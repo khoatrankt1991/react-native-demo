@@ -85,6 +85,7 @@ const styles =  StyleSheet.create({
     productPrice: {
         marginLeft: 10,
         fontFamily: 'Avenir',
+        fontWeight: '900',
         color: '#556b2f'
     }
 });

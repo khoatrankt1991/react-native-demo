@@ -2,12 +2,10 @@ import React, {Component} from 'react';
 import {
     View, Text, TouchableOpacity, StyleSheet, Image
 } from 'react-native';
+import {connect} from 'react-redux';
 
 class Menu extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {username: null};
-    }
+
     static navigationOptions = {
         title: 'Menu'
     }
@@ -23,12 +21,16 @@ class Menu extends Component {
         let { navigate } = this.props.navigation;
         navigate('OrderHistory');
     }
+    signOut() {
+        var {dispatch} = this.props;
+        dispatch({type: "SIGN_OUT"});
+    }
     render() {
         const { wrapper, btn, btn1, btnTitle} = styles;
         const LoginScreen = ()=>(
             <View style={wrapper}>
                     <Image style={{ margin: 10, width: 177, height: 177, borderRadius: 90}} source={require('../../resource/img/non_profile.jpg')}/>
-                    <View style={btn}><TouchableOpacity>
+                    <View style={btn}><TouchableOpacity onPress={this.goToAuthentication.bind(this)}>
                                     <Text style={btnTitle}>Sign In</Text>
                     </TouchableOpacity></View>
             </View>
@@ -45,7 +47,7 @@ class Menu extends Component {
                             <View style={btn1}><TouchableOpacity>
                                     <Text style={btnTitle}>Order History</Text>
                             </TouchableOpacity></View>
-                            <View style={btn1}><TouchableOpacity>
+                            <View style={btn1}><TouchableOpacity onPress={this.signOut.bind(this)}>
                                     <Text style={btnTitle}>Sign Out</Text>
                             </TouchableOpacity></View>
                         </View>
@@ -53,7 +55,7 @@ class Menu extends Component {
                     </View>
             </View>
         );
-        return this.state.username?<LogOutScreen/>:<LoginScreen/>;
+        return this.props.username != null?<LogOutScreen/>:<LoginScreen/>;
     }
 }
 const styles= StyleSheet.create({
@@ -89,6 +91,9 @@ const styles= StyleSheet.create({
         fontFamily: 'Avenir',
         color: '#556b2f',
         fontSize: 20,
+        marginRight: 10
     }
 })
-module.exports = Menu;
+module.exports = connect(function(state){
+    return { username: state.username}
+})(Menu);

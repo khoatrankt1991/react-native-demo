@@ -7,11 +7,11 @@
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
 import App from './components/App.js';
-import SideBarDrawer from './components/SideBarDrawer.js';
-
+import store from './store.js';
+import { Provider } from  'react-redux';
 export default class NativeShopping extends Component {
   render() {
-    return <App/>
+    return <Provider store={store}><App/></Provider>
   }
 }
 AppRegistry.registerComponent('NativeShopping', () => NativeShopping);
