@@ -127,7 +127,8 @@ const styles = StyleSheet.create({
         borderColor: '#FFF'
     },
     txtSignInNow: {
-        color: '#FFF'
+        color: '#FFF',
+        fontFamily: 'Avenir'
     },
     txtUsername: {
         fontFamily: 'Avenir',
